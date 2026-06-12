@@ -10,23 +10,19 @@ export default function StatCard({
         y: -5,
       }}
       className="
-  bg-zinc-900/70
-  backdrop-blur
-  border
-  border-zinc-800
-  rounded-3xl
-  p-6
-  shadow-lg
-  hover:border-violet-500/50
-  transition-all
-  duration-300
-"
+        bg-zinc-900/80
+        backdrop-blur-xl
+        border
+        border-zinc-800
+        rounded-2xl
+        p-6
+      "
     >
       <p className="text-zinc-400">
         {title}
       </p>
 
-      <h2 className="text-3xl font-bold mt-2">
+      <h2 className="text-4xl font-bold mt-3">
         {value}
       </h2>
     </motion.div>

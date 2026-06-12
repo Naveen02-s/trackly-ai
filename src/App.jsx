@@ -15,25 +15,15 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
 
-          <Route
-            path="/applications"
-            element={<Applications />}
-          />
+          <Route path="/applications" element={<Applications />} />
 
-          <Route
-            path="/kanban"
-            element={<Kanban />}
-          />
+          <Route path="/kanban" element={<Kanban />} />
 
-          <Route
-            path="/analytics"
-            element={<Analytics />}
-          />
+          <Route path="/analytics" element={<Analytics />} />
 
-          <Route
-            path="/settings"
-            element={<Settings />}
-          />
+          <Route path="/settings" element={<Settings />} />
+
+          <Route path="/kanban" element={<Kanban />} />
         </Routes>
       </MainLayout>
     </BrowserRouter>
