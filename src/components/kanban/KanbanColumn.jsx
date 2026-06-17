@@ -3,6 +3,7 @@ import KanbanCard from "./KanbanCard";
 export default function KanbanColumn({
   title,
   jobs,
+  onJobClick,
 }) {
   return (
     <div
@@ -45,6 +46,9 @@ export default function KanbanColumn({
           <KanbanCard
             key={job.id}
             job={job}
+            onClick={() =>
+              onJobClick(job)
+            }
           />
         ))}
       </div>

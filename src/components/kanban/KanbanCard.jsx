@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 
 export default function KanbanCard({
   job,
+  onClick,
 }) {
   return (
     <motion.div
+    onClick={onClick}
       whileHover={{
         scale: 1.02,
       }}
