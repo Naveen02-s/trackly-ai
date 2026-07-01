@@ -1,5 +1,9 @@
 import { useState } from "react";
 import useJobStore from "../../store/useJobStore";
+import * as pdfjsLib from "pdfjs-dist";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 export default function AddJobModal({
   isOpen,
@@ -8,6 +12,15 @@ export default function AddJobModal({
   const addJob = useJobStore(
     (state) => state.addJob
   );
+
+  const [resumeBase64, setResumeBase64] =
+  useState("");
+
+const [resumeName, setResumeName] =
+  useState("");
+
+const [resumeText, setResumeText] =
+  useState("");
 
   const [formData, setFormData] = useState({
     company: "",
@@ -24,14 +37,65 @@ export default function AddJobModal({
     });
   };
 
+  const handleResumeUpload = async (e) => {
+  const file = e.target.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+reader.onload = () => {
+  setResumeBase64(reader.result);
+};
+
+reader.readAsDataURL(file);
+
+  setResumeName(file.name);
+
+  const arrayBuffer =
+    await file.arrayBuffer();
+
+  const pdf =
+    await pdfjsLib.getDocument({
+      data: arrayBuffer,
+    }).promise;
+
+  let text = "";
+
+  for (
+    let pageNum = 1;
+    pageNum <= pdf.numPages;
+    pageNum++
+  ) {
+    const page =
+      await pdf.getPage(pageNum);
+
+    const content =
+      await page.getTextContent();
+
+    text += content.items
+      .map((item) => item.str)
+      .join(" ");
+  }
+
+  setResumeText(text);
+};
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     addJob({
-      id: Date.now(),
-      ...formData,
-      date: new Date().toLocaleDateString(),
-    });
+  id: crypto.randomUUID(),
+
+  ...formData,
+
+  resumeBase64,
+  resumeName,
+  resumeText,
+
+  date:
+    new Date().toLocaleDateString(),
+});
 
     setFormData({
       company: "",
@@ -95,6 +159,43 @@ export default function AddJobModal({
             required
             className="w-full bg-zinc-800 rounded-xl p-3"
           />
+
+          <div>
+  <label
+    className="
+      block
+      mb-2
+      text-sm
+      text-zinc-400
+    "
+  >
+    Resume (PDF)
+  </label>
+
+  <input
+    type="file"
+    accept=".pdf"
+    onChange={handleResumeUpload}
+    className="
+      w-full
+      bg-zinc-800
+      rounded-xl
+      p-3
+    "
+  />
+
+  {resumeName && (
+    <p
+      className="
+        mt-2
+        text-green-400
+        text-sm
+      "
+    >
+      {resumeName}
+    </p>
+  )}
+</div>
 
           <input
             name="location"

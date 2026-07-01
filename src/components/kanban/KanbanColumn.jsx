@@ -1,12 +1,19 @@
 import KanbanCard from "./KanbanCard";
+import { useDroppable } from "@dnd-kit/core";
 
 export default function KanbanColumn({
   title,
   jobs,
   onJobClick,
 }) {
+  const { setNodeRef } =
+    useDroppable({
+      id: title,
+    });
+
   return (
     <div
+      ref={setNodeRef}
       className="
         bg-zinc-900
         border

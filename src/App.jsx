@@ -24,6 +24,7 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
 
           <Route path="/kanban" element={<Kanban />} />
+
         </Routes>
       </MainLayout>
     </BrowserRouter>

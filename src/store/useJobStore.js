@@ -13,24 +13,27 @@ const useJobStore = create(
 
       deleteJob: (id) =>
         set((state) => ({
-          jobs: state.jobs.filter(
-            (job) => job.id !== id
-          ),
+          jobs: state.jobs.filter((job) => job.id !== id),
         })),
 
       updateJob: (updatedJob) =>
         set((state) => ({
           jobs: state.jobs.map((job) =>
-            job.id === updatedJob.id
-              ? updatedJob
-              : job
+            job.id === updatedJob.id ? updatedJob : job,
+          ),
+        })),
+
+      updateJobStatus: (id, status) =>
+        set((state) => ({
+          jobs: state.jobs.map((job) =>
+            job.id === id ? { ...job, status } : job,
           ),
         })),
     }),
     {
       name: "trackly-jobs",
-    }
-  )
+    },
+  ),
 );
 
 export default useJobStore;

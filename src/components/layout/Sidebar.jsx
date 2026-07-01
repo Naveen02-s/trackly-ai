@@ -5,6 +5,7 @@ import {
   KanbanSquare,
   BarChart3,
   Settings,
+  FileText,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -21,6 +22,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       label: "Applications",
       path: "/applications",
     },
+   
     {
       icon: KanbanSquare,
       label: "Kanban",
