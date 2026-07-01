@@ -3,7 +3,6 @@ import {
   LayoutDashboard,
   Briefcase,
   KanbanSquare,
-  BarChart3,
   Settings,
   FileText,
 } from "lucide-react";
@@ -27,11 +26,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
       icon: KanbanSquare,
       label: "Kanban",
       path: "/kanban",
-    },
-    {
-      icon: BarChart3,
-      label: "Analytics",
-      path: "/analytics",
     },
     {
       icon: Settings,

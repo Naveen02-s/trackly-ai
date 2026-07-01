@@ -5,7 +5,6 @@ import MainLayout from "./layouts/MainLayout";
 import Dashboard from "./pages/Dashboard";
 import Applications from "./pages/Applications";
 import Kanban from "./pages/Kanban";
-import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 
 export default function App() {
@@ -19,11 +18,7 @@ export default function App() {
 
           <Route path="/kanban" element={<Kanban />} />
 
-          <Route path="/analytics" element={<Analytics />} />
-
           <Route path="/settings" element={<Settings />} />
-
-          <Route path="/kanban" element={<Kanban />} />
 
         </Routes>
       </MainLayout>
