@@ -7,10 +7,9 @@ export default function KanbanColumn({
   onJobClick,
   onAnalyze,
 }) {
-  const { setNodeRef } =
-    useDroppable({
-      id: title,
-    });
+  const { setNodeRef } = useDroppable({
+    id: title,
+  });
 
   return (
     <div
@@ -21,7 +20,7 @@ export default function KanbanColumn({
         border-zinc-800
         rounded-2xl
         p-4
-        min-h-[70vh]
+        min-h-[250px]
       "
     >
       <div
@@ -49,17 +48,21 @@ export default function KanbanColumn({
         </span>
       </div>
 
-      <div className="space-y-3">
-        {jobs.map((job) => (
-          <KanbanCard
-  key={job.id}
-  job={job}
-  onClick={() =>
-    onJobClick(job)
-  }
-  onAnalyze={onAnalyze}
-/>
-        ))}
+      <div className="space-y-5">
+        {jobs.length > 0 ? (
+          jobs.map((job) => (
+            <KanbanCard
+              key={job.id}
+              job={job}
+              onClick={() => onJobClick(job)}
+              onAnalyze={onAnalyze}
+            />
+          ))
+        ) : (
+          <div className="py-10 text-center text-zinc-500 text-sm">
+            No applications
+          </div>
+        )}
       </div>
     </div>
   );

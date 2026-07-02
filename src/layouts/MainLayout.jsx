@@ -18,7 +18,7 @@ export default function MainLayout({ children }) {
     >
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
-      <div className="flex-1 lg:ml-64 flex flex-col">
+      <div className="flex-1 flex flex-col">
         <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
         <main className="flex-1 overflow-auto">

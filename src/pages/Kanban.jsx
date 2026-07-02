@@ -8,7 +8,6 @@ import {
   DragOverlay,
 } from "@dnd-kit/core";
 import { analyzeJob } from "../services/aiService";
-import AnalysisPanel from "../components/ai/AnalysisPanel";
 import AIAnalysisModal from "../components/ai/AIAnalysisModal";
 
 export default function Kanban() {
@@ -101,17 +100,11 @@ const handleAnalyze = (job) => {
 
   return (
     <div
-  className={`
-    p-8
-    transition-all
-    duration-300
-
-    ${
-      selectedJob
-        ? "lg:pr-[550px] xl:pr-[600px]"
-        : ""
-    }
-  `}
+  className="
+    w-full
+    p-6
+    lg:p-8
+  "
 >
       <h1 className="text-4xl font-bold mb-8">
         Kanban Board
@@ -122,19 +115,17 @@ const handleAnalyze = (job) => {
   onDragStart={handleDragStart}
   onDragEnd={handleDragEnd}
 >
-  <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
 
   {/* Kanban */}
-  <div className="xl:col-span-3">
     <div
-      className="
-        grid
-        grid-cols-1
-        md:grid-cols-2
-        xl:grid-cols-4
-        gap-6
-      "
-    >
+  className="
+  grid
+  grid-cols-1
+  md:grid-cols-2
+  2xl:grid-cols-4
+  gap-8
+"
+>
       {statuses.map((status) => (
         <KanbanColumn
   key={status}
@@ -147,16 +138,7 @@ const handleAnalyze = (job) => {
 />
       ))}
     </div>
-  </div>
 
-  {/* AI Panel */}
-  <AnalysisPanel
-  loading={loading}
-  analysis={analysis}
-  job={selectedJob}
-/>
-
-</div>
   <DragOverlay>
   {activeJob ? (
     <div
