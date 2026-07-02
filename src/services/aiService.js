@@ -82,3 +82,34 @@ Rules:
     throw error;
   }
 }
+
+export async function askFollowUp(
+  analysis,
+  question
+) {
+  const model =
+    genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+    });
+
+  const prompt = `
+You are a professional career coach.
+
+The previous analysis was:
+
+${JSON.stringify(analysis, null, 2)}
+
+The user asks:
+
+"${question}"
+
+Answer the user's question based on the previous analysis.
+
+Keep the answer practical and concise.
+`;
+
+  const result =
+    await model.generateContent(prompt);
+
+  return result.response.text();
+}

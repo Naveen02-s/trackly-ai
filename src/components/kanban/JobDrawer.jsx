@@ -12,12 +12,14 @@ import { useState } from "react";
 
 import useJobStore from "../../store/useJobStore";
 import EditJobModal from "../common/EditJobModal";
-import AiInsights from "../ai/AiInsights";
+import AIControls from "../ai/AIControls";
 import ResumeUploadModal from "../resume/ResumeUploadModal";
 
 export default function JobDrawer({
   job,
   onClose,
+  onAnalyze,
+  loading,
 }) {
   const jobs = useJobStore(
     (state) => state.jobs
@@ -267,7 +269,10 @@ export default function JobDrawer({
 
                 {/* AI */}
 
-                <AiInsights job={currentJob} />
+                <AIControls
+  onAnalyze={onAnalyze}
+  loading={loading}
+/>
 
                 {/* Buttons */}
 

@@ -5,6 +5,7 @@ export default function KanbanColumn({
   title,
   jobs,
   onJobClick,
+  onAnalyze,
 }) {
   const { setNodeRef } =
     useDroppable({
@@ -51,12 +52,13 @@ export default function KanbanColumn({
       <div className="space-y-3">
         {jobs.map((job) => (
           <KanbanCard
-            key={job.id}
-            job={job}
-            onClick={() =>
-              onJobClick(job)
-            }
-          />
+  key={job.id}
+  job={job}
+  onClick={() =>
+    onJobClick(job)
+  }
+  onAnalyze={onAnalyze}
+/>
         ))}
       </div>
     </div>

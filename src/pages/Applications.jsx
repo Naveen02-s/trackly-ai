@@ -5,6 +5,7 @@ import useJobStore from "../store/useJobStore";
 
 
 export default function Applications() {
+
   const [isModalOpen, setIsModalOpen] =
     useState(false);
 
@@ -13,6 +14,15 @@ export default function Applications() {
 
   const [statusFilter, setStatusFilter] =
     useState("All");
+
+    const [analysis, setAnalysis] =
+  useState(null);
+
+const [loading, setLoading] =
+  useState(false);
+
+const [selectedJob, setSelectedJob] =
+  useState(null);
 
   const jobs = useJobStore(
     (state) => state.jobs

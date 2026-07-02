@@ -7,6 +7,9 @@ import {
   closestCorners,
   DragOverlay,
 } from "@dnd-kit/core";
+import { analyzeJob } from "../services/aiService";
+import AnalysisPanel from "../components/ai/AnalysisPanel";
+import AIAnalysisModal from "../components/ai/AIAnalysisModal";
 
 export default function Kanban() {
   const jobs = useJobStore((state) => state.jobs);
@@ -14,8 +17,46 @@ export default function Kanban() {
   const [selectedJob, setSelectedJob] =
     useState(null);
 
+const handleSelectJob = (job) => {
+  setSelectedJob(job);
+  setAnalysis(null);
+};
+  const [analysis, setAnalysis] =
+    useState(null);
+
+const [loading, setLoading] =
+  useState(false);
+
+const generateInsights = async () => {
+  if (!selectedJob) return;
+
+  // Clear previous analysis immediately
+  setAnalysis(null);
+
+  setLoading(true);
+
+  try {
+    const result = await analyzeJob(selectedJob);
+
+    const parsed = JSON.parse(result);
+
+    setAnalysis(parsed);
+  } catch (error) {
+    console.error(error);
+    alert("Failed to analyze this application.");
+  } finally {
+    setLoading(false);
+  }
+};
+
   const [activeJob, setActiveJob] =
   useState(null);
+
+  const [analysisJob, setAnalysisJob] =
+  useState(null);
+
+const [analysisOpen, setAnalysisOpen] =
+  useState(false);
 
   const statuses = [
     "Applied",
@@ -53,6 +94,11 @@ export default function Kanban() {
   setActiveJob(null);
 };
 
+const handleAnalyze = (job) => {
+  setAnalysisJob(job);
+  setAnalysisOpen(true);
+};
+
   return (
     <div
   className={`
@@ -76,26 +122,41 @@ export default function Kanban() {
   onDragStart={handleDragStart}
   onDragEnd={handleDragEnd}
 >
-  <div
-    className="
-      grid
-      grid-cols-1
-      md:grid-cols-2
-      xl:grid-cols-4
-      gap-6
-    "
-  >
-    {statuses.map((status) => (
-      <KanbanColumn
-        key={status}
-        title={status}
-        jobs={jobs.filter(
-          (job) => job.status === status
-        )}
-        onJobClick={setSelectedJob}
-      />
-    ))}
+  <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+
+  {/* Kanban */}
+  <div className="xl:col-span-3">
+    <div
+      className="
+        grid
+        grid-cols-1
+        md:grid-cols-2
+        xl:grid-cols-4
+        gap-6
+      "
+    >
+      {statuses.map((status) => (
+        <KanbanColumn
+  key={status}
+  title={status}
+  jobs={jobs.filter(
+    (job) => job.status === status
+  )}
+  onJobClick={setSelectedJob}
+  onAnalyze={handleAnalyze}
+/>
+      ))}
+    </div>
   </div>
+
+  {/* AI Panel */}
+  <AnalysisPanel
+  loading={loading}
+  analysis={analysis}
+  job={selectedJob}
+/>
+
+</div>
   <DragOverlay>
   {activeJob ? (
     <div
@@ -128,11 +189,20 @@ export default function Kanban() {
 </DndContext>
 
       <JobDrawer
-        job={selectedJob}
-        onClose={() =>
-          setSelectedJob(null)
-        }
-      />
+  job={selectedJob}
+  onClose={() => setSelectedJob(null)}
+  onAnalyze={generateInsights}
+  loading={loading}
+/>
+
+<AIAnalysisModal
+  job={analysisJob}
+  isOpen={analysisOpen}
+  onClose={() => {
+    setAnalysisOpen(false);
+    setAnalysisJob(null);
+  }}
+/>
     </div>
   );
 }
