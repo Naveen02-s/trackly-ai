@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useJobStore from "../../store/useJobStore";
 import * as pdfjsLib from "pdfjs-dist";
 
@@ -8,10 +8,15 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 export default function AddJobModal({
   isOpen,
   onClose,
+  job,
 }) {
   const addJob = useJobStore(
     (state) => state.addJob
   );
+
+  const updateJob = useJobStore(
+  (state) => state.updateJob
+);
 
   const [resumeBase64, setResumeBase64] =
   useState("");
@@ -29,6 +34,34 @@ const [resumeText, setResumeText] =
     status: "Applied",
     notes: "",
   });
+
+  useEffect(() => {
+  if (job) {
+    setFormData({
+      company: job.company,
+      role: job.role,
+      location: job.location,
+      status: job.status,
+      notes: job.notes,
+    });
+
+    setResumeBase64(job.resumeBase64 || "");
+    setResumeName(job.resumeName || "");
+    setResumeText(job.resumeText || "");
+  } else {
+    setFormData({
+      company: "",
+      role: "",
+      location: "",
+      status: "Applied",
+      notes: "",
+    });
+
+    setResumeBase64("");
+    setResumeName("");
+    setResumeText("");
+  }
+}, [job, isOpen]);
 
   const handleChange = (e) => {
     setFormData({
@@ -84,26 +117,36 @@ reader.readAsDataURL(file);
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    addJob({
-  id: crypto.randomUUID(),
-
-  ...formData,
-
-  resumeBase64,
-  resumeName,
-  resumeText,
-
-  date:
-    new Date().toLocaleDateString(),
-});
+    if (job) {
+  updateJob({
+    ...job,
+    ...formData,
+    resumeBase64,
+    resumeName,
+    resumeText,
+  });
+} else {
+  addJob({
+    id: crypto.randomUUID(),
+    ...formData,
+    resumeBase64,
+    resumeName,
+    resumeText,
+    date: new Date().toLocaleDateString(),
+  });
+}
 
     setFormData({
-      company: "",
-      role: "",
-      location: "",
-      status: "Applied",
-      notes: "",
-    });
+  company: "",
+  role: "",
+  location: "",
+  status: "Applied",
+  notes: "",
+});
+
+setResumeBase64("");
+setResumeName("");
+setResumeText("");
 
     onClose();
   };
@@ -135,8 +178,8 @@ reader.readAsDataURL(file);
         "
       >
         <h2 className="text-2xl font-bold mb-6">
-          Add Job Application
-        </h2>
+  {job ? "Edit Application" : "Add Job Application"}
+</h2>
 
         <form
           onSubmit={handleSubmit}
@@ -249,7 +292,7 @@ reader.readAsDataURL(file);
                 bg-violet-600
               "
             >
-              Save Job
+              {job ? "Save Changes" : "Save Job"}
             </button>
           </div>
         </form>

@@ -18,8 +18,6 @@ import ResumeUploadModal from "../resume/ResumeUploadModal";
 export default function JobDrawer({
   job,
   onClose,
-  onAnalyze,
-  loading,
 }) {
   const jobs = useJobStore(
     (state) => state.jobs
@@ -266,13 +264,6 @@ export default function JobDrawer({
                     </button>
                   )}
                 </div>
-
-                {/* AI */}
-
-                <AIControls
-  onAnalyze={onAnalyze}
-  loading={loading}
-/>
 
                 {/* Buttons */}
 

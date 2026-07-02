@@ -173,8 +173,6 @@ const handleAnalyze = (job) => {
       <JobDrawer
   job={selectedJob}
   onClose={() => setSelectedJob(null)}
-  onAnalyze={generateInsights}
-  loading={loading}
 />
 
 <AIAnalysisModal

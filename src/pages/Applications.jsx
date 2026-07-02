@@ -28,6 +28,8 @@ const [selectedJob, setSelectedJob] =
     (state) => state.jobs
   );
 
+  const [editingJob, setEditingJob] = useState(null);
+
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch =
       job.company
@@ -52,20 +54,21 @@ const [selectedJob, setSelectedJob] =
         </h1>
 
         <button
-          onClick={() =>
-            setIsModalOpen(true)
-          }
-          className="
-            bg-violet-600
-            px-5
-            py-3
-            rounded-xl
-            hover:bg-violet-500
-            transition
-          "
-        >
-          + Add Job
-        </button>
+  onClick={() => {
+    setEditingJob(null);
+    setIsModalOpen(true);
+  }}
+  className="
+    bg-violet-600
+    px-5
+    py-3
+    rounded-xl
+    hover:bg-violet-500
+    transition
+  "
+>
+  + Add Job
+</button>
       </div>
 
       {/* Search + Filter */}
@@ -164,9 +167,13 @@ const [selectedJob, setSelectedJob] =
             <tbody>
               {filteredJobs.map((job) => (
                 <JobRow
-                  key={job.id}
-                  job={job}
-                />
+  key={job.id}
+  job={job}
+  onEdit={(job) => {
+    setEditingJob(job);
+    setIsModalOpen(true);
+  }}
+/>
               ))}
             </tbody>
           </table>
@@ -188,11 +195,13 @@ const [selectedJob, setSelectedJob] =
       )}
 
       <AddJobModal
-        isOpen={isModalOpen}
-        onClose={() =>
-          setIsModalOpen(false)
-        }
-      />
+  isOpen={isModalOpen}
+  job={editingJob}
+  onClose={() => {
+    setIsModalOpen(false);
+    setEditingJob(null);
+  }}
+/>
     </div>
   );
 }
