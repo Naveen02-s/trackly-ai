@@ -3,28 +3,69 @@ import { motion } from "framer-motion";
 export default function StatCard({
   title,
   value,
+  icon,
+  color = "from-violet-600 to-fuchsia-600",
 }) {
   return (
     <motion.div
       whileHover={{
-        y: -5,
+        y: -6,
+        scale: 1.02,
       }}
+      transition={{ duration: 0.2 }}
       className="
-        bg-zinc-900/80
-        backdrop-blur-xl
+        relative
+        overflow-hidden
+        rounded-2xl
         border
         border-zinc-800
-        rounded-2xl
+        bg-zinc-900/80
+        backdrop-blur-xl
         p-6
       "
     >
-      <p className="text-zinc-400">
-        {title}
-      </p>
+      {/* Gradient Glow */}
+      <div
+        className={`
+          absolute
+          -top-12
+          -right-12
+          h-32
+          w-32
+          rounded-full
+          bg-gradient-to-br
+          ${color}
+          opacity-20
+          blur-3xl
+        `}
+      />
 
-      <h2 className="text-4xl font-bold mt-3">
-        {value}
-      </h2>
+      <div className="relative flex justify-between items-start">
+        <div>
+          <p className="text-zinc-400 text-sm">
+            {title}
+          </p>
+
+          <h2 className="text-4xl font-bold mt-3">
+            {value}
+          </h2>
+        </div>
+
+        <div
+          className={`
+            h-12
+            w-12
+            rounded-xl
+            bg-gradient-to-br
+            ${color}
+            flex
+            items-center
+            justify-center
+          `}
+        >
+          {icon}
+        </div>
+      </div>
     </motion.div>
   );
 }

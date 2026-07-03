@@ -1,5 +1,24 @@
 import StatCard from "../components/dashboard/StatCard";
 import useJobStore from "../store/useJobStore";
+import {
+  Briefcase,
+  Mic,
+  Trophy,
+  XCircle,
+  TrendingUp,
+} from "lucide-react";
+
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  BarChart,
+  Bar,
+} from "recharts";
 
 export default function Dashboard() {
   const jobs = useJobStore((state) => state.jobs);
@@ -23,71 +42,119 @@ export default function Dashboard() {
       ? Math.round((offers / totalApplications) * 100)
       : 0;
 
+  // 📊 Trend (you can later make this dynamic from createdAt)
+  const monthlyData = [
+    { month: "Jan", applications: 4 },
+    { month: "Feb", applications: 7 },
+    { month: "Mar", applications: 5 },
+    { month: "Apr", applications: 10 },
+    { month: "May", applications: 8 },
+    { month: "Jun", applications: totalApplications },
+  ];
+
+  const statusData = [
+    { name: "Applied", value: jobs.filter(j => j.status === "Applied").length },
+    { name: "Interview", value: interviews },
+    { name: "Offer", value: offers },
+    { name: "Rejected", value: rejected },
+  ];
+
   return (
     <div className="relative p-8">
-      <div
-        className="
-          absolute
-          top-0
-          right-0
-          h-96
-          w-96
-          bg-violet-600/20
-          blur-[120px]
-          rounded-full
-          pointer-events-none
-        "
-      />
 
-      <h1
-        className="
-          text-3xl
-          md:text-4xl
-          lg:text-5xl
-          font-bold
-        "
-      >
-        Welcome Back 👋
-      </h1>
+      {/* background glow */}
+      <div className="absolute top-0 right-0 h-96 w-96 bg-violet-600/20 blur-[120px] rounded-full pointer-events-none" />
 
-      <p className="text-zinc-400 mt-2">
-        Track your applications and stay on top of your job search.
-      </p>
+      {/* Header */}
+      <h1 className="text-3xl font-semibold tracking-tight text-white">
+  Welcome Back 👋
+</h1>
 
-      <div
-        className="
-          grid
-          grid-cols-1
-          sm:grid-cols-2
-          xl:grid-cols-5
-          gap-6
-          mt-10
-        "
-      >
+<p className="text-sm text-zinc-400 mt-1">
+  Track your applications and stay on top of your job search.
+</p>
+
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 mt-10">
         <StatCard
           title="Applications"
           value={totalApplications}
+          icon={<Briefcase size={24} />}
+          color="from-blue-500 to-cyan-500"
         />
 
         <StatCard
           title="Interviews"
           value={interviews}
+          icon={<Mic size={24} />}
+          color="from-yellow-500 to-orange-500"
         />
 
         <StatCard
           title="Offers"
           value={offers}
+          icon={<Trophy size={24} />}
+          color="from-green-500 to-emerald-500"
         />
 
         <StatCard
           title="Rejected"
           value={rejected}
+          icon={<XCircle size={24} />}
+          color="from-red-500 to-pink-500"
         />
 
         <StatCard
           title="Success Rate"
           value={`${successRate}%`}
+          icon={<TrendingUp size={24} />}
+          color="from-violet-500 to-fuchsia-500"
         />
+      </div>
+
+      {/* 📊 Analytics Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+
+        {/* Line Chart */}
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-lg">
+          <h2 className="text-lg font-semibold mb-4 text-white">
+            Applications Trend
+          </h2>
+
+          <ResponsiveContainer width="100%" height={260}>
+            <LineChart data={monthlyData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
+              <XAxis dataKey="month" stroke="#aaa" />
+              <YAxis stroke="#aaa" />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="applications"
+                stroke="#8b5cf6"
+                strokeWidth={3}
+                dot={{ r: 4 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Bar Chart */}
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-lg">
+          <h2 className="text-lg font-semibold mb-4 text-white">
+            Status Breakdown
+          </h2>
+
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={statusData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
+              <XAxis dataKey="name" stroke="#aaa" />
+              <YAxis stroke="#aaa" />
+              <Tooltip />
+              <Bar dataKey="value" fill="#22c55e" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
       </div>
     </div>
   );
