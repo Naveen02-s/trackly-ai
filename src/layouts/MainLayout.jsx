@@ -7,11 +7,27 @@ export default function MainLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div
+      className="
+        min-h-screen
+        bg-zinc-50
+        text-zinc-900
+        dark:bg-black
+        dark:text-white
+        transition-colors
+      "
+    >
       {/* Mobile Backdrop */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          className="
+            fixed
+            inset-0
+            bg-black/60
+            dark:bg-black/60
+            z-40
+            lg:hidden
+          "
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

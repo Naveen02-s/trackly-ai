@@ -18,10 +18,15 @@ export default function StatCard({
         overflow-hidden
         rounded-2xl
         border
-        border-zinc-800
-        bg-zinc-900/80
+        border-zinc-200
+        dark:border-zinc-800
+        bg-white
+        dark:bg-zinc-900/80
         backdrop-blur-xl
         p-6
+        shadow-sm
+        dark:shadow-none
+        transition-colors
       "
     >
       {/* Gradient Glow */}
@@ -42,11 +47,11 @@ export default function StatCard({
 
       <div className="relative flex justify-between items-start">
         <div>
-          <p className="text-zinc-400 text-sm">
+          <p className="text-zinc-600 dark:text-zinc-400 text-sm">
             {title}
           </p>
 
-          <h2 className="text-4xl font-bold mt-3">
+          <h2 className="text-4xl font-bold text-zinc-900 dark:text-white mt-3">
             {value}
           </h2>
         </div>
@@ -61,6 +66,7 @@ export default function StatCard({
             flex
             items-center
             justify-center
+            text-white
           `}
         >
           {icon}

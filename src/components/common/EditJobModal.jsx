@@ -52,13 +52,18 @@ export default function EditJobModal({
       <form
         onSubmit={handleSubmit}
         className="
-          bg-zinc-950
+          bg-white
+          dark:bg-zinc-950
           border
-          border-zinc-800
+          border-zinc-200
+          dark:border-zinc-800
           rounded-2xl
           p-6
           w-full
           max-w-lg
+          text-zinc-900
+          dark:text-white
+          shadow-xl
         "
       >
         <h2
@@ -77,12 +82,26 @@ export default function EditJobModal({
             onChange={(e) =>
               setFormData({
                 ...formData,
-                company:
-                  e.target.value,
+                company: e.target.value,
               })
             }
             placeholder="Company"
-            className="w-full bg-zinc-900 p-3 rounded-xl"
+            className="
+              w-full
+              bg-zinc-100
+              dark:bg-zinc-900
+              border
+              border-zinc-300
+              dark:border-zinc-700
+              rounded-xl
+              p-3
+              text-zinc-900
+              dark:text-white
+              placeholder:text-zinc-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-violet-500
+            "
           />
 
           <input
@@ -90,12 +109,26 @@ export default function EditJobModal({
             onChange={(e) =>
               setFormData({
                 ...formData,
-                role:
-                  e.target.value,
+                role: e.target.value,
               })
             }
             placeholder="Role"
-            className="w-full bg-zinc-900 p-3 rounded-xl"
+            className="
+              w-full
+              bg-zinc-100
+              dark:bg-zinc-900
+              border
+              border-zinc-300
+              dark:border-zinc-700
+              rounded-xl
+              p-3
+              text-zinc-900
+              dark:text-white
+              placeholder:text-zinc-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-violet-500
+            "
           />
 
           <input
@@ -103,12 +136,26 @@ export default function EditJobModal({
             onChange={(e) =>
               setFormData({
                 ...formData,
-                location:
-                  e.target.value,
+                location: e.target.value,
               })
             }
             placeholder="Location"
-            className="w-full bg-zinc-900 p-3 rounded-xl"
+            className="
+              w-full
+              bg-zinc-100
+              dark:bg-zinc-900
+              border
+              border-zinc-300
+              dark:border-zinc-700
+              rounded-xl
+              p-3
+              text-zinc-900
+              dark:text-white
+              placeholder:text-zinc-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-violet-500
+            "
           />
 
           <select
@@ -116,11 +163,24 @@ export default function EditJobModal({
             onChange={(e) =>
               setFormData({
                 ...formData,
-                status:
-                  e.target.value,
+                status: e.target.value,
               })
             }
-            className="w-full bg-zinc-900 p-3 rounded-xl"
+            className="
+              w-full
+              bg-zinc-100
+              dark:bg-zinc-900
+              border
+              border-zinc-300
+              dark:border-zinc-700
+              rounded-xl
+              p-3
+              text-zinc-900
+              dark:text-white
+              focus:outline-none
+              focus:ring-2
+              focus:ring-violet-500
+            "
           >
             <option>Applied</option>
             <option>Interview</option>
@@ -134,12 +194,26 @@ export default function EditJobModal({
             onChange={(e) =>
               setFormData({
                 ...formData,
-                notes:
-                  e.target.value,
+                notes: e.target.value,
               })
             }
             placeholder="Notes"
-            className="w-full bg-zinc-900 p-3 rounded-xl"
+            className="
+              w-full
+              bg-zinc-100
+              dark:bg-zinc-900
+              border
+              border-zinc-300
+              dark:border-zinc-700
+              rounded-xl
+              p-3
+              text-zinc-900
+              dark:text-white
+              placeholder:text-zinc-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-violet-500
+            "
           />
         </div>
 
@@ -149,9 +223,13 @@ export default function EditJobModal({
             onClick={onClose}
             className="
               flex-1
-              bg-zinc-800
+              bg-zinc-200
+              dark:bg-zinc-800
+              hover:bg-zinc-300
+              dark:hover:bg-zinc-700
               py-3
               rounded-xl
+              transition
             "
           >
             Cancel
@@ -162,8 +240,11 @@ export default function EditJobModal({
             className="
               flex-1
               bg-violet-600
+              hover:bg-violet-500
+              text-white
               py-3
               rounded-xl
+              transition
             "
           >
             Save Changes

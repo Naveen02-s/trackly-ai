@@ -15,12 +15,17 @@ export default function KanbanColumn({
     <div
       ref={setNodeRef}
       className="
-        bg-zinc-900
+        bg-white
+        dark:bg-zinc-900
         border
-        border-zinc-800
+        border-zinc-200
+        dark:border-zinc-800
         rounded-2xl
         p-4
         min-h-[250px]
+        shadow-sm
+        dark:shadow-none
+        transition-colors
       "
     >
       <div
@@ -31,17 +36,21 @@ export default function KanbanColumn({
           mb-4
         "
       >
-        <h2 className="font-bold text-lg">
+        <h2 className="font-bold text-lg text-zinc-900 dark:text-white">
           {title}
         </h2>
 
         <span
           className="
-            bg-zinc-800
+            bg-zinc-100
+            dark:bg-zinc-800
+            text-zinc-700
+            dark:text-zinc-300
             px-2
             py-1
             rounded-lg
             text-sm
+            transition-colors
           "
         >
           {jobs.length}
@@ -59,7 +68,7 @@ export default function KanbanColumn({
             />
           ))
         ) : (
-          <div className="py-10 text-center text-zinc-500 text-sm">
+          <div className="py-10 text-center text-zinc-500 dark:text-zinc-500 text-sm">
             No applications
           </div>
         )}

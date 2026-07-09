@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
 html,
 body,
 #root {
@@ -8,6 +11,6 @@ body,
 
 body {
   transition:
-    background-color .3s ease,
-    color .3s ease;
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

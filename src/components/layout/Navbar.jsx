@@ -6,9 +6,13 @@ export default function Navbar({ setIsSidebarOpen }) {
       className="
         sticky top-0 z-30
         h-20
-        border-b border-white/5
-        bg-black/80
+        border-b
+        border-zinc-200
+        dark:border-white/5
+        bg-white/80
+        dark:bg-black/80
         backdrop-blur-md
+        transition-colors
       "
     >
       <div className="h-full px-6 flex items-center justify-between">
@@ -23,11 +27,15 @@ export default function Navbar({ setIsSidebarOpen }) {
               lg:hidden
               p-2
               rounded-lg
-              hover:bg-white/5
+              hover:bg-zinc-100
+              dark:hover:bg-white/5
               transition
             "
           >
-            <Menu size={22} className="text-zinc-400" />
+            <Menu
+              size={22}
+              className="text-zinc-600 dark:text-zinc-400"
+            />
           </button>
 
           {/* Search */}
@@ -41,11 +49,18 @@ export default function Navbar({ setIsSidebarOpen }) {
               px-4
               py-2.5
               rounded-xl
-              bg-zinc-900
-              border border-white/5
+              bg-zinc-100
+              dark:bg-zinc-900
+              border
+              border-zinc-200
+              dark:border-white/5
+              transition-colors
             "
           >
-            <Search size={18} className="text-zinc-500" />
+            <Search
+              size={18}
+              className="text-zinc-500 dark:text-zinc-500"
+            />
 
             <input
               type="text"
@@ -55,7 +70,10 @@ export default function Navbar({ setIsSidebarOpen }) {
                 bg-transparent
                 outline-none
                 text-sm
+                text-zinc-900
+                dark:text-white
                 placeholder:text-zinc-500
+                dark:placeholder:text-zinc-500
               "
             />
           </div>
@@ -70,11 +88,15 @@ export default function Navbar({ setIsSidebarOpen }) {
               relative
               p-2
               rounded-xl
-              hover:bg-white/5
+              hover:bg-zinc-100
+              dark:hover:bg-white/5
               transition
             "
           >
-            <Bell size={21} className="text-zinc-400" />
+            <Bell
+              size={21}
+              className="text-zinc-600 dark:text-zinc-400"
+            />
 
             <span
               className="
@@ -103,6 +125,7 @@ export default function Navbar({ setIsSidebarOpen }) {
               justify-center
               font-semibold
               text-sm
+              text-white
               shadow-lg
             "
           >

@@ -23,7 +23,6 @@ export default function JobDrawer({
     (state) => state.jobs
   );
 
-  // Always use the latest job from the store
   const currentJob =
     jobs.find((j) => j.id === job?.id) || job;
 
@@ -90,12 +89,17 @@ export default function JobDrawer({
                 md:w-[500px]
                 lg:w-[550px]
                 xl:w-[600px]
-                bg-zinc-950
+                bg-white
+                dark:bg-zinc-950
                 border-l
-                border-zinc-800
+                border-zinc-200
+                dark:border-zinc-800
+                text-zinc-900
+                dark:text-white
                 z-50
                 overflow-y-auto
                 shadow-2xl
+                transition-colors
               "
             >
               {/* Header */}
@@ -103,13 +107,16 @@ export default function JobDrawer({
                 className="
                   sticky
                   top-0
-                  bg-zinc-950
+                  bg-white
+                  dark:bg-zinc-950
                   border-b
-                  border-zinc-800
+                  border-zinc-200
+                  dark:border-zinc-800
                   p-6
                   flex
                   justify-between
                   items-center
+                  transition-colors
                 "
               >
                 <h2 className="text-2xl font-bold">
@@ -121,7 +128,8 @@ export default function JobDrawer({
                   className="
                     p-2
                     rounded-lg
-                    hover:bg-zinc-800
+                    hover:bg-zinc-100
+                    dark:hover:bg-zinc-800
                     transition
                   "
                 >
@@ -137,13 +145,13 @@ export default function JobDrawer({
                       "Unknown Company"}
                   </h1>
 
-                  <p className="text-zinc-400 mt-2">
+                  <p className="text-zinc-600 dark:text-zinc-400 mt-2">
                     {currentJob.role ||
                       "Role not specified"}
                   </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 text-zinc-700 dark:text-zinc-300">
                   <div className="flex items-center gap-3">
                     <MapPin size={18} />
                     <span>
@@ -170,7 +178,6 @@ export default function JobDrawer({
                 </div>
 
                 {/* Notes */}
-
                 <div>
                   <h3 className="text-lg font-semibold mb-3">
                     Notes
@@ -178,13 +185,17 @@ export default function JobDrawer({
 
                   <div
                     className="
-                      bg-zinc-900
+                      bg-zinc-100
+                      dark:bg-zinc-900
                       border
-                      border-zinc-800
+                      border-zinc-200
+                      dark:border-zinc-800
                       rounded-xl
                       p-4
                       min-h-[120px]
-                      text-zinc-400
+                      text-zinc-600
+                      dark:text-zinc-400
+                      transition-colors
                     "
                   >
                     {currentJob.notes?.trim()
@@ -194,7 +205,6 @@ export default function JobDrawer({
                 </div>
 
                 {/* Resume */}
-
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold">
                     Resume
@@ -203,11 +213,14 @@ export default function JobDrawer({
                   {currentJob.resumeName ? (
                     <div
                       className="
-                        bg-zinc-900
+                        bg-zinc-100
+                        dark:bg-zinc-900
                         border
-                        border-zinc-800
+                        border-zinc-200
+                        dark:border-zinc-800
                         rounded-xl
                         p-4
+                        transition-colors
                       "
                     >
                       <p className="font-medium">
@@ -215,38 +228,40 @@ export default function JobDrawer({
                       </p>
 
                       <div className="flex gap-3 mt-4">
-  <button
-    onClick={() =>
-      setResumeModal(true)
-    }
-    className="
-      flex-1
-      bg-violet-600
-      hover:bg-violet-500
-      px-4
-      py-2
-      rounded-lg
-      transition
-    "
-  >
-    Replace
-  </button>
+                        <button
+                          onClick={() =>
+                            setResumeModal(true)
+                          }
+                          className="
+                            flex-1
+                            bg-violet-600
+                            hover:bg-violet-500
+                            text-white
+                            px-4
+                            py-2
+                            rounded-lg
+                            transition
+                          "
+                        >
+                          Replace
+                        </button>
 
-  <button
-    onClick={deleteResume}
-    className="
-      flex-1
-      bg-red-600
-      hover:bg-red-500
-      px-4
-      py-2
-      rounded-lg
-      transition
-    "
-  >
-    Delete
-  </button>
-</div>
+                        <button
+                          onClick={deleteResume}
+                          className="
+                            flex-1
+                            bg-red-600
+                            hover:bg-red-500
+                            text-white
+                            px-4
+                            py-2
+                            rounded-lg
+                            transition
+                          "
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <button
@@ -255,9 +270,12 @@ export default function JobDrawer({
                       }
                       className="
                         bg-violet-600
+                        hover:bg-violet-500
+                        text-white
                         px-4
                         py-3
                         rounded-xl
+                        transition
                       "
                     >
                       Upload Resume
@@ -266,7 +284,6 @@ export default function JobDrawer({
                 </div>
 
                 {/* Buttons */}
-
                 <div className="flex gap-3 mt-10">
                   <button
                     onClick={() =>
@@ -276,6 +293,7 @@ export default function JobDrawer({
                       flex-1
                       bg-violet-600
                       hover:bg-violet-500
+                      text-white
                       py-3
                       rounded-xl
                       font-medium
@@ -294,6 +312,7 @@ export default function JobDrawer({
                       flex-1
                       bg-red-600
                       hover:bg-red-500
+                      text-white
                       py-3
                       rounded-xl
                       font-medium
