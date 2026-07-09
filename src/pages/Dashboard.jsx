@@ -42,7 +42,7 @@ export default function Dashboard() {
       ? Math.round((offers / totalApplications) * 100)
       : 0;
 
-  // 📊 Trend (you can later make this dynamic from createdAt)
+  // 📊 Trend 
   const monthlyData = [
     { month: "Jan", applications: 4 },
     { month: "Feb", applications: 7 },
