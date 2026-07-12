@@ -12,7 +12,6 @@ import { useState } from "react";
 
 import useJobStore from "../../store/useJobStore";
 import EditJobModal from "../common/EditJobModal";
-import AIControls from "../ai/AIControls";
 import ResumeUploadModal from "../resume/ResumeUploadModal";
 
 export default function JobDrawer({
